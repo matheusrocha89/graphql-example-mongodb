@@ -1,16 +1,9 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga';
-// import Admin from 'firebase-admin';
 import connectDatabase from './database';
 
 import Mutation from './resolvers/Mutation';
 import Query from './resolvers/Query';
 import Subscription from './resolvers/Subscription';
-// Import here your firestore credentials
-// import credential from './firestore-credentials.json';
-
-// Admin.initializeApp({ credential: Admin.credential.cert(credential) });
-// const db = Admin.firestore();
-// db.settings({ timestampsInSnapshots: true });
 
 export default async () => {
   try {
