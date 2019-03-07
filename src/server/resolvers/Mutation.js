@@ -10,12 +10,17 @@ const createPost = async (_, { authorId, title, content }, { pubsub }) => {
     };
 
     const newPost = await Post.create(postToSave);
-    await Author.findByIdAndUpdate(
+    const author = await Author.findByIdAndUpdate(
       authorId,
       { $push: { posts: newPost.id } },
     ).exec();
     pubsub.publish('postAdded', { postAdded: newPost });
-    return newPost;
+    const postData = newPost.toObject();
+    return {
+      ...postData,
+      id: newPost.id,
+      postedBy: author,
+    };
   } catch (e) {
     throw new Error(e.message);
   }
